@@ -18,6 +18,11 @@ const initializePassportConfig = require("./passportConfig")
 const config = require("./config")
 const os = require("os");
 const cluster = require("cluster");
+const compression = require("compression");
+const logger = require("./logs/logger.js")
+
+const app = express();
+const port = config.port;
 
 const mongoStoreOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
@@ -33,6 +38,9 @@ if (config.mode === "cluster" && cluster.isPrimary) {
     })
 
 } else {
+
+     /* compression */
+     app.use(compression())
 
     /* post url encode */
     app.use(express.json())
