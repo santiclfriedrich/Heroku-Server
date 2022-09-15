@@ -1,0 +1,141 @@
+<% if (user){ %>
+    <header>
+        <nav>
+            <a href="/" class="header__title">Home</a>
+            <ul>
+                <li><a href="/" class="logout">Salir</a></li>
+            </ul>
+        </nav>
+        <div class="header__salute"></div>
+    </header>
+    <button class="info__modal__open">INFO</button>
+    <dialog class='info__modal'>
+        <div class="info__modal__text"></div>
+        <button class="info__modal__close">X</button>
+    </dialog>
+    <section class="formulario" id="formulario">
+        <h2>Subir Producto</h2>
+        <form class="formulario__form">
+            <label>Título: <input type="text" name="title" required id="form__title" maxLength={50}
+                    title="Ingresar título"></label>
+            <label>Precio: <input type="text" name="price" required id="form__price" pattern="[0-9]{1,10}"
+                    maxLength={10} title="Ingresar precio"></label>
+            <label>Imagen - URL: <input type="text" name="thumbnail" id="form__imgUrl"
+                    title="Ingresar url de imagen"></label>
+            <button>Enviar</button>
+        </form>
+    </section>
+
+    <section class="productos" id="productos">
+        <h2>Ver Productos</h2>
+        <% if (productos.length>0){ %>
+            <table class="productos__table">
+                <tr>
+                    <th>Titulo</th>
+                    <th>Portada</th>
+                    <th>Precio</th>
+                </tr>
+
+                <% productos.forEach(item=>{%>
+                    <tr>
+                        <td>
+                            <%=item.title%>
+                        </td>
+                        <td><img alt="item img" src="<%=item.imgUrl%>" /></td>
+                        <td>$<%=item.price%> USD</td>
+                    </tr>
+                    <% }) %>
+            </table>
+            <p class="productos__noProd d-none">No se cargaron productos.</p>
+            <% } else {%>
+                <table class="productos__table d-none">
+                    <tr>
+                        <th>Titulo</th>
+                        <th>Portada</th>
+                        <th>Precio</th>
+                    </tr>
+
+                    <% productos.forEach(item=>{%>
+                        <tr>
+                            <td>
+                                <%=item.title%>
+                            </td>
+                            <td><img alt="item img" src="<%=item.imgUrl%>" /></td>
+                            <td>$<%=item.price%> USD</td>
+                        </tr>
+                        <% }) %>
+                </table>
+                <p class="productos__noProd">No se cargaron productos.</p>
+                <% } %>
+    </section>
+
+    <section class="chat" id="chat">
+        <h2>Chat</h2>
+        <form class="chat__container">
+            <fieldset>
+                <legend>User</legend>
+                <input class="chat__container__nombre" type="email" name="nombre" id="chatNombre"
+                    placeholder="Ingresar e-mail..." required autocomplete="off" maxlength="320"
+                    pattern="[^@\s]+@[^@\s]+\.[^@\s]+" title="Ingresar e-mail">
+                <label class="chat__container__nombre--label" for="chatNombre">Nombre:</label>
+            </fieldset>
+            <div class="chat__optimization">Optimizacion Normalizr: </div>
+            <div class="chat__container__mensajesBox">
+                <div class="chat__container__mensajes">
+                    <%if(mensajes){%>
+                        <% mensajes.forEach(mensaje=>{%>
+                            <div>
+                                <span class="chat__container__mensajes__nombre">
+                                    <%=mensaje.author.email%>
+                                </span><span class="chat__container__mensajes__fecha">
+                                    <%=new Date(mensaje.createdAt).toLocaleString()%>:
+                                </span><span class="chat__container__mensajes__mensaje">
+                                    <%=mensaje.text%>
+                                </span>
+                            </div>
+                            <% }) %>
+                                <% } %>
+                </div>
+            </div>
+            <div class="chat__container__envio">
+                <input class="chat__container__mensaje" type="text" name="nombre" id="chatNombre"
+                    placeholder="Escribir mensaje..." required autocomplete="off" maxlength="500"
+                    title="Escribir mensaje">
+                <button type="submit">Enviar</button>
+            </div>
+        </form>
+    </section>
+    <% } else {%>
+        <header>
+            <nav>
+                <a href="/" class="header__title">Home</a>
+                <ul>
+                    <li><button type="submit" form="login__form">Entrar</a></li>
+                </ul>
+            </nav>
+            <div class="header__salute"></div>
+        </header>
+        <section class="login">
+            <h2>LOG-IN</h2>
+            <form class="login__form" id="login__form">
+                <input type="email" class="login__input login__inputEmail" required placeholder="EMAIL">
+                <input type="password" class="login__input login__inputPassword" required placeholder="PASSWORD">
+                <button class="login__send">Ingresar</button>
+                <div class="login__error"></div>
+            </form>
+            <button class="registerBtn">Registrarse</button>
+            <dialog class='register__modal'>
+                <form class="register__form">
+                    <input type="text" class="register__input" id="userReg" required placeholder="USER" name="user">
+                    <input type="email" class="register__input" id="emailReg" required placeholder="EMAIL" name="email">
+                    <input type="password" class="register__input" id="passwordReg" required placeholder="PASSWORD" name="password">
+                    <button class="register__send">Registrarse</button>
+                    <div class="register__error"></div>
+                </form>
+                <div class="register__success"></div>
+                <button class="register__modal__close">X</button>
+            </dialog>
+        </section>
+        <% } %>
+
+        
