@@ -96,7 +96,7 @@ if (config.mode === "cluster" && cluster.isPrimary) {
     mongoose.connect(mongoConnection).then(() => console.log("Conexión establecida con Mongo")).catch(error => console.log("error conectado a db: ", error));
 
     /* start server */
-    const expressServer = app.listen(port, (err) => {
+    const expressServer = app.listen(process.env.PORT || port, (err) => {
         if (!err) {
             console.log(`El servidor se inicio en el puerto ${port}. Modo: ${config.mode}`)
         } else {
