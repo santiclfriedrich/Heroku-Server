@@ -5,6 +5,7 @@ const routesProdTest = require("./routes/ProductsTest").router;
 const randomsApi = require("./routes/apiRandoms").router;
 const path = require("path")
 const ChatContainer = require("./Contenedores/Chat")
+const chat = require("./models/chatContainerModel")
 const { contenedorProductos } = require("./controllers/apiController")
 const { Server: IOServer } = require("socket.io");
 const normalizeMensajes = require("../util/normalize")
